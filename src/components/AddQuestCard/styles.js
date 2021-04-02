@@ -7,6 +7,7 @@ export const AddQuestsCard = styled.button`
     background-color: transparent;
     border: transparent;
     margin-top: 8%;
+    margin-bottom: 2%;
     cursor: pointer;
 `;
 

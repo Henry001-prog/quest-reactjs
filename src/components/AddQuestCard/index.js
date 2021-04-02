@@ -11,7 +11,7 @@ import { AddQuestsCard, Card, Image, Text, CardText } from './styles';
 
 // import { Container } from './styles';
 
-const AddQuestCard = ({ questionnaire, isFirstColumn, onNavigate }) => (
+const AddQuestCard = ({ isFirstColumn, onNavigate }) => (
     <AddQuestsCard
         onPress={onNavigate}
         isFirstColumn={isFirstColumn}>

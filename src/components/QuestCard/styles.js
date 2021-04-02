@@ -12,6 +12,10 @@ export const QuestsCard = styled.button`
     cursor: pointer;
 `;
 
+export const QuestCardMobile = styled(QuestsCard)`
+    width: 30%;
+`;
+
 export const Card = styled.div`
     border-width: 2px;
     border-color: black;

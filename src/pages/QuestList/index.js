@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { ViewList, ScrollList, ViewTop, ViewBottom } from './styles';
+import React, { useState, useEffect } from 'react';
+import { ViewList } from './styles';
 import QuestCard from '../../components/QuestCard';
 import AddQuestCard from '../../components/AddQuestCard';
-import QuestCardMobile from '../../components/QuestCardMobile';
 
 import firebase from '@firebase/app';
 import '@firebase/database';
+import history from '../../History';
 
 export default function QuestList({ navigation }) {
     //const title = navigation.getParam('title');
@@ -15,9 +15,6 @@ export default function QuestList({ navigation }) {
     //const [dateUser, setDateUser] = useState('');
    // const [customFields, setCustomFields] = useState([{}]);
     const [data, setData] = useState([]);
-    /*const [data2, setData2] = useState({
-      questions: []
-    });*/
 
     //const [active, setActive] = useState(false);
 
@@ -50,65 +47,29 @@ export default function QuestList({ navigation }) {
     
   }, []);
 
-  const [width, setWidth] = useState(window.innerWidth);
-  const breakpoint = 620;
-
-  useEffect(() => {
-      const handleWindowResize = () => setWidth(window.innerWidth)
-      window.addEventListener("resize", handleWindowResize);
-
-      // Return a function from the effect that removes the event listener
-      return () => window.removeEventListener("resize", handleWindowResize);
-  }, []);
-
-      console.log(data);
+  console.log(data);
     
 
-    const isEven = number => number % 2 === 0;
+  const isEven = number => number % 2 === 0;
 
-    return (
-        width < breakpoint ?
-        <ViewList>
-          
-             {data.map((item, index) => (
-               item.creator.user.trim() === ''
-               ?
-               <div>
-                  <QuestCardMobile 
-                    quest={item}
+  return (
+      <ViewList>
+            {data.map((item, index) => (
+              item.creator.user.trim() === ''
+              ?
+              <div>
+                <QuestCard 
+                    title={item.title}
                     isFirstColumn={isEven(index)}
-                    onNavigate={() => navigation.navigate('QuestAnswer', { dataItem: item })}
-                  /> 
-               </div>
-               : null
-                  
-             ))}
-          
-          <AddQuestCard   
-            onNavigate={() => navigation.navigate('Main')} 
-          />
-          </ViewList>
-          :
-
-          <ViewList>
-          
-             {data.map((item, index) => (
-               item.creator.user.trim() === ''
-               ?
-               <div>
-                  <QuestCard 
-                    quest={item}
-                    isFirstColumn={isEven(index)}
-                    onNavigate={() => navigation.navigate('QuestAnswer', { dataItem: item })}
-                  /> 
-               </div>
-               : null
-                  
-             ))}
-          
-          <AddQuestCard   
-            onNavigate={() => navigation.navigate('Main')} 
-          />
-          </ViewList>
-    );
+                    onNavigate={() => history.push('/questanswer', { dataItem: item })}
+                /> 
+              </div>
+              : null
+            ))}
+            
+        <AddQuestCard   
+          onNavigate={() => history.push('/')} 
+        />
+      </ViewList>
+  );
 }
