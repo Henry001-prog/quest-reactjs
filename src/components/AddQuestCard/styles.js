@@ -9,6 +9,7 @@ export const AddQuestsCard = styled.button`
     margin-top: 8%;
     margin-bottom: 2%;
     cursor: pointer;
+    outline: none;
 `;
 
 export const Card = styled.div`

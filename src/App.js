@@ -1,7 +1,7 @@
 import './App.css';
 import Questionnaire from './pages/Questionnaire';
 import QuestList from './pages/QuestList';
-//import QuestAnswer from './pages/QuestAnswer';
+import QuestAnswer from './pages/QuestAnswer';
 import history from './History';
 
 import { Router, Switch, Route } from 'react-router-dom';
@@ -17,7 +17,9 @@ function App() {
           <Route path="/questlist">
             <QuestList />
           </Route>
-          
+          <Route path="/questanswer">
+            <QuestAnswer />
+          </Route>
         </Switch>
       </div>
     </Router>

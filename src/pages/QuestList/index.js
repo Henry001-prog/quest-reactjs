@@ -5,7 +5,8 @@ import AddQuestCard from '../../components/AddQuestCard';
 
 import firebase from '@firebase/app';
 import '@firebase/database';
-import history from '../../History';
+//import history from '../../History';
+import { useHistory } from "react-router-dom";
 
 export default function QuestList({ navigation }) {
     //const title = navigation.getParam('title');
@@ -48,7 +49,8 @@ export default function QuestList({ navigation }) {
   }, []);
 
   console.log(data);
-    
+  
+  let history = useHistory();
 
   const isEven = number => number % 2 === 0;
 
@@ -61,7 +63,7 @@ export default function QuestList({ navigation }) {
                 <QuestCard 
                     title={item.title}
                     isFirstColumn={isEven(index)}
-                    onNavigate={() => history.push('/questanswer', { dataItem: item })}
+                    onNavigate={() => history.push({pathname: '/questanswer', state: { dataItem: item }})}
                 /> 
               </div>
               : null

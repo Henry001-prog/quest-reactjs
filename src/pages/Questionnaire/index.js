@@ -213,7 +213,6 @@ export default function Questionnaire( props, coords ) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder='Título'
-                        multiline={true}
                     />
                     {!!nameError && (
                         <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
@@ -227,7 +226,6 @@ export default function Questionnaire( props, coords ) {
                                 value={creatorAuthor}
                                 onChange={(e) => setCreatorAuthor(e.target.value)}
                                 placeholder='Autor'
-                                multiline={true}
                         />
                         <br/>
                         {!!nameError2 && (
@@ -239,7 +237,6 @@ export default function Questionnaire( props, coords ) {
                             value={user}
                             onChange={(e) => setUser(e.target.value)}
                             placeholder='Usuário'
-                            multiline={true}
                             defaultValue={(user ??{})}
                         />
                     </FormRow>
@@ -252,7 +249,6 @@ export default function Questionnaire( props, coords ) {
                                 value={dateCreator} 
                                 onChange={(e) => setDateCreator(e.target.value)}
                                 placeholder='Data de criação do formulário'
-                                multiline={true}
                             />
                             {!!nameError3 && (
                                 <Text style={{ color: 'red', textAlign: 'center', }}>{nameError3}</Text>
@@ -265,7 +261,6 @@ export default function Questionnaire( props, coords ) {
                                     value={dateUser}
                                     onChange={(e) => setDateUser(e.target.value)}
                                     placeholder='Data das repostas'
-                                    multiline={true}
                                 />
                             </div>
                     </FormRow>
@@ -281,7 +276,6 @@ export default function Questionnaire( props, coords ) {
                                             value={customInput.key} 
                                             onChangeText={(name, className) => {OnCustomInputNameHandler(name, key, className)}}
                                             placeholder='Pergunta'
-                                            multiline={true}
                                             className='quest'
                                             dataIndex={key}
                                         />
@@ -295,7 +289,6 @@ export default function Questionnaire( props, coords ) {
                                             value={customInput.key}
                                             onChangeText={(value, className) => {OnCustomInputKeyHandler(value)}}
                                             placeholder='Resposta'
-                                            multiline={true}
                                             className='ans'
                                             dataIndex={key}
                                         />
@@ -323,7 +316,7 @@ export default function Questionnaire( props, coords ) {
                     <ViewButton>
                         <Button
                             title='Salvar'
-                            style={{color: 'white', background: 'blue'}}
+                            style={{color: 'white', background: 'blue', marginTop: '3%', marginBottom: '3%'}}
                             onClick={() => {handleSubmit()}}
                         >Salvar</Button>
                     </ViewButton>
@@ -340,7 +333,6 @@ export default function Questionnaire( props, coords ) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder='Título'
-                        multiline={true}
                     />
                     {!!nameError && (
                         <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
@@ -354,7 +346,6 @@ export default function Questionnaire( props, coords ) {
                                 value={creatorAuthor}
                                 onChange={(e) => setCreatorAuthor(e.target.value)}
                                 placeholder='Autor'
-                                multiline={true}
                         />
                         <br/>
                         {!!nameError2 && (
@@ -366,7 +357,6 @@ export default function Questionnaire( props, coords ) {
                             value={user}
                             onChange={(e) => setUser(e.target.value)}
                             placeholder='Usuário'
-                            multiline={true}
                             defaultValue={(user ??{})}
                         />
                     </FormRow>
@@ -379,7 +369,6 @@ export default function Questionnaire( props, coords ) {
                                 value={dateCreator} 
                                 onChange={(e) => setDateCreator(e.target.value)}
                                 placeholder='Data de criação do formulário'
-                                multiline={true}
                             />
                             {!!nameError3 && (
                                 <Text style={{ color: 'red', textAlign: 'center', }}>{nameError3}</Text>
@@ -392,7 +381,6 @@ export default function Questionnaire( props, coords ) {
                                     value={dateUser}
                                     onChange={(e) => setDateUser(e.target.value)}
                                     placeholder='Data das repostas'
-                                    multiline={true}
                                 />
                             </div>
                     </FormRow>
@@ -408,7 +396,6 @@ export default function Questionnaire( props, coords ) {
                                             value={customInput.key} 
                                             onChangeText={(name, className) => {OnCustomInputNameHandler(name, key, className)}}
                                             placeholder='Pergunta'
-                                            multiline={true}
                                             className='quest'
                                             dataIndex={key}
                                         />
@@ -422,7 +409,6 @@ export default function Questionnaire( props, coords ) {
                                             value={customInput.key}
                                             onChangeText={(value, className) => {OnCustomInputKeyHandler(value)}}
                                             placeholder='Resposta'
-                                            multiline={true}
                                             className='ans'
                                             dataIndex={key}
                                         />
@@ -450,7 +436,7 @@ export default function Questionnaire( props, coords ) {
                     <ViewButton>
                         <Button
                             title='Salvar'
-                            style={{color: 'white', background: 'blue'}}
+                            style={{color: 'white', background: 'blue', marginTop: '3%', marginBottom: '3%', height: 40, width: 80}}
                             onClick={() => {handleSubmit()}}
                         >Salvar</Button>
                     </ViewButton>

@@ -40,6 +40,7 @@ export const TextInput = styled.input`
     color: white;
     font-size: 17px;
     text-align: center;
+    outline: none;
 `;
 export const TextInput2 = styled.input`
     background-color: #00000000;
@@ -60,6 +61,7 @@ export const TextInput2 = styled.input`
     color: white;
     font-size: 17px;
     text-align: center;
+    outline: none;
 `;
 
 export const TextArea = styled.textarea`
@@ -78,6 +80,7 @@ export const TextArea = styled.textarea`
     border-color: #999999;
     color: white;
     font-size: 17px;
+    outline: none;
     text-align: left; // alinha o texto do usuário
     ::placeholder {
         text-align: center; // alinha o placeholder
@@ -104,6 +107,7 @@ export const TextArea2 = styled.textarea`
     border-color: #999999;
     color: white;
     font-size: 17px;
+    outline: none;
     text-align: left; // alinha o texto do usuário
     ::placeholder {
         text-align: center; // alinha o placeholder
@@ -119,8 +123,8 @@ export const ViewButton = styled.div`
 
 export const Button1 = styled.button`
    flex: 1;
-   width: 72px;
-   height: 38px;
+   width: 82px;
+   height: 45px;
    border-radius: 5px;
    border: 1px solid transparent;
    color: white;
@@ -130,6 +134,8 @@ export const Button1 = styled.button`
    align-items: center;
    font-size: 14px;
    cursor: pointer;
+   margin-top: 3%;
+   margin-bottom: 3%;
 `;
 
 export const ButtonClean = styled(Button1)``;
@@ -140,5 +146,5 @@ export const Text = styled.div`
     color: #fff;
     font-weight: bold;
     font-size: 20px;
-    margin: 20px;
+    margin: 20px 20px 30px 20px;
 `;

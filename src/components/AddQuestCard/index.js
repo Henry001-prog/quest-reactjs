@@ -13,7 +13,7 @@ import { AddQuestsCard, Card, Image, Text, CardText } from './styles';
 
 const AddQuestCard = ({ isFirstColumn, onNavigate }) => (
     <AddQuestsCard
-        onPress={onNavigate}
+        onClick={onNavigate}
         isFirstColumn={isFirstColumn}>
         <Card>
             <Image 

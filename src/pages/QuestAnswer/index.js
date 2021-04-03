@@ -1,29 +1,34 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState } from 'react';
+import useViewport from '../../resources/responsive';
 
 import { 
-    KeyboardAvoidingView, 
-    ScrollView, 
-    TextInput, 
+    ScrollView,
+    ScrollView2,
+    TextInput,
+    TextInput2,
+    TextArea,
+    TextArea2, 
     ViewButton, 
-    Button, 
-    ButtonClean, 
-    Loading, 
     Text 
 } from './styles';
 
-import { StatusBar } from 'expo-status-bar';
+import Button from '@material-ui/core/Button';
+
 import FormRow from "../../components/FormRow";
 
 import firebase from "@firebase/app";
 import "@firebase/database";
+import history from '../../History';
+import { useLocation } from "react-router-dom";
 
-export default function QuestList({ navigation }) {
-    const [data, setData] = useState(navigation.getParam('dataItem'));
+export default function QuestList({ props }) {
+    const location = useLocation();
+    const { dataItem } = location.state;
+
+    const [data, setData] = useState(dataItem);
     const [nameError, setNameError] = useState('');
 
-    console.log(data)
-
-    const dataOther = navigation.getParam('dataItem');
+    console.log(data);
 
 
     function handleUpdate() {
@@ -40,80 +45,149 @@ export default function QuestList({ navigation }) {
             setNameError(() => ('Necessário preencher o campo usuário.'));
         } else {
             setNameError(() => (null));
-            navigation.navigate('QuestList');
+            history.push('questlist');
         }
     }
+
+    const { width } = useViewport();
+    const breakpoint = 620;
     
-  return (
-    <KeyboardAvoidingView style={{backgroundColor: 'white', flex: 1}} enabled>
-                <StatusBar style="#6ca2f7" />
-                <ScrollView contentContainerStyle={{ padding: 10 }}>
-                        <FormRow first>
-                            <Text>{data.title}</Text>
-                        </FormRow>
+    return (
+        width < breakpoint ?
+        <div style={{backgroundColor: '#595959', flex: 1}}>
+            <ScrollView>
+                <FormRow first>
+                        <Text>{data.title}</Text>
+                </FormRow>
 
-                        <FormRow>
-                            <Text>{data.creator.creatorAuthor}</Text>
-                            <TextInput 
-                                style={{marginBottom: 20}}
-                                placeholderTextColor= '#808080'
-                                value={data.creator.user}
-                                onChangeText={value => setData({ ...data, creator: {...data.creator, user: value} })}
-                                placeholder='Usuário'
-                                multiline={true}
-                            />
-                            {!!nameError && (
-                                <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
-                            )}
-                        </FormRow>
+                <FormRow>
+                    <Text>{data.creator.creatorAuthor}</Text>
+                    <TextInput
+                        style={{marginBottom: 20}}
+                        placeholderTextColor= '#808080'
+                        value={data.creator.user}
+                        onChange={(e) => setData({ ...data, creator: {...data.creator, user: e.target.value} })}
+                        placeholder='Usuário'
+                    />
+                    {!!nameError && (
+                        <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
+                    )}
+                </FormRow>
 
-                        <FormRow>
-                            <Text>{data.date.dateCreator}</Text>
-                                <TextInput
-                                    style={{marginBottom: 20}}
-                                    placeholderTextColor= '#808080'
-                                    value={data.date.dateUser}
-                                    onChangeText={value => setData({ ...data, date: {...data.date, dateUser: value} })}
-                                    placeholder='Data das repostas'
-                                    
-                                />
-                    </FormRow>
+                <FormRow>
+                    <Text>{data.date.dateCreator}</Text>
+                    <TextInput
+                        style={{marginBottom: 20}}
+                        placeholderTextColor= '#808080'
+                        value={data.date.dateUser}
+                        onChange={(e) => setData({ ...data, date: {...data.date, dateUser: e.target.value} })}
+                        placeholder='Data das repostas'        
+                    />
+                </FormRow>
 
                     {
                         data.customField.map((q, id) => (
                             <FormRow key={id}>
                                 <Text>{q.quests}</Text>
-                                <TextInput
+                                <TextArea
                                     style={{marginBottom: 20}}
                                     placeholderTextColor= '#808080'
                                     value={q.ans}
-                                    onChangeText={value => { 
-                                        const updated = [...data.customField]; updated[id].ans = value; 
+                                    onChange={(e) => { 
+                                        const updated = [...data.customField]; updated[id].ans = e.target.value; 
                                         setData({ ...data, customField: updated }); }
                                     }
                                     placeholder='Resposta'
-                                    multiline={true}
-                                    
                                 />
                             </FormRow>
-                            
+                                
 
                         ))
                     }
 
-                    <FormRow>
-                        <Text>{data.latitude}</Text>
-                        <Text>{data.longitude}</Text>
-                    </FormRow>
+                <FormRow>
+                    <Text>{data.latitude}</Text>
+                    <Text>{data.longitude}</Text>
+                </FormRow>
 
-                    <ViewButton>
-                        <Button
-                            title='Salvar'
-                            onPress={() => {handleUpdate(); error()}}
-                        />
-                    </ViewButton>
+                <ViewButton>
+                    <Button
+                        style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                        onClick={() => {handleUpdate(); error()}}
+                    >Salvar</Button>
+                </ViewButton>
+                            
+            </ScrollView>
+
+        </div>
+
+        :
+
+        <div style={{backgroundColor: '#595959', flex: 1}}>
+        <ScrollView2>
+            <FormRow first>
+                    <Text>{data.title}</Text>
+            </FormRow>
+
+            <FormRow>
+                <Text>{data.creator.creatorAuthor}</Text>
+                <TextInput2
+                    style={{marginBottom: 20}}
+                    placeholderTextColor= '#808080'
+                    value={data.creator.user}
+                    onChange={(e) => setData({ ...data, creator: {...data.creator, user: e.target.value} })}
+                    placeholder='Usuário'
+                />
+                {!!nameError && (
+                    <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
+                )}
+            </FormRow>
+
+            <FormRow>
+                <Text>{data.date.dateCreator}</Text>
+                <TextInput2
+                    style={{marginBottom: 20}}
+                    placeholderTextColor= '#808080'
+                    value={data.date.dateUser}
+                    onChange={(e) => setData({ ...data, date: {...data.date, dateUser: e.target.value} })}
+                    placeholder='Data das repostas'              
+                />
+            </FormRow>
+
+                {
+                    data.customField.map((q, id) => (
+                        <FormRow key={id}>
+                            <Text>{q.quests}</Text>
+                            <TextArea2
+                                style={{marginBottom: 20}}
+                                placeholderTextColor= '#808080'
+                                value={q.ans}
+                                onChange={(e) => { 
+                                    const updated = [...data.customField]; updated[id].ans = e.target.value; 
+                                    setData({ ...data, customField: updated }); }
+                                }
+                                placeholder='Resposta'
+                            />
+                        </FormRow>
+                            
+
+                    ))
+                }
+
+            <FormRow>
+                <Text style={{paddingRight: 26}}>Latitude: {data.latitude}</Text>
+                <Text>Longitude: {data.longitude}</Text>
+            </FormRow>
+
+            <ViewButton>
+                <Button
+                    style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                    onClick={() => {handleUpdate(); error()}}
+                >Salvar</Button>
+            </ViewButton>
                         
-                </ScrollView>
-        </KeyboardAvoidingView>
-  );
+        </ScrollView2>
+
+    </div>           
+    );
 }
