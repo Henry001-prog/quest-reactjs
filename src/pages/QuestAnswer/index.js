@@ -26,16 +26,33 @@ export default function QuestList({ props }) {
     const { dataItem } = location.state;
 
     const [data, setData] = useState(dataItem);
+    const uid = JSON.stringify(data.uid);
+
+    
+    const {uid2} = location.state2;
+    //const  uid2  = location.state.dataItem.googleId;
+
+    const [data2, setData2] = useState(uid2);
+    const googleId = JSON.stringify(data2.googleId); //aqui eu separo o googleId em formato de string
+    
+    const [data3, setData3] = useState(googleId); // aqui eu coloco o googleId dentro da variável googleId
+    console.log('test:', data3)
+
     const [nameError, setNameError] = useState('');
 
+    //const datas = {...data, ...data3}; //pode ser um array ou object
+
     console.log(data);
+
+    //console.log('uid2:', JSON.stringify(data2.googleId));
 
 
     function handleUpdate() {
         const db = firebase.database();
         db
         .ref(`/questionnaires/${data.id}`)
-        .set(data);
+        .push(...data, ...data3);
+        //.push(datas);
         //setData('');
         //navigation.navigate('QuestList');
     }
@@ -116,6 +133,17 @@ export default function QuestList({ props }) {
                         onClick={() => {handleUpdate(); error()}}
                     >Salvar</Button>
                 </ViewButton>
+                {
+                    uid === data3
+                    ?
+                    <ViewButton>
+                        <Button
+                            style={{color: 'white', background: 'red', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                            onClick={() => {handleUpdate(); error()}}
+                        >Deletar</Button>
+                    </ViewButton>
+                    : null
+                }    
                             
             </ScrollView>
 
@@ -185,7 +213,17 @@ export default function QuestList({ props }) {
                     onClick={() => {handleUpdate(); error()}}
                 >Salvar</Button>
             </ViewButton>
-                        
+            {
+            uid === data3
+            ?
+            <ViewButton>
+                <Button
+                    style={{color: 'white', background: 'red', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                    onClick={() => {handleUpdate(); error()}}
+                >Deletar</Button>
+            </ViewButton>
+            : null
+            }           
         </ScrollView2>
 
     </div>           

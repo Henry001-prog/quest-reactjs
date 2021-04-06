@@ -3,6 +3,7 @@ import FormRow from '../../components/FormRow';
 import Button from '@material-ui/core/Button';
 
 import history from '../../History';
+import { useLocation } from "react-router-dom";
 
 import firebase from '@firebase/app';
 import '@firebase/database';
@@ -23,6 +24,11 @@ import {
 export default function Questionnaire( props, coords ) {
 
     
+    const location = useLocation();
+    const { dataItem } = location.state;
+
+    const [data, setData] = useState(dataItem);
+
     const [title, setTitle] = useState('');
     const [creatorAuthor, setCreatorAuthor] = useState('');
     const [user, setUser] = useState('');
@@ -44,7 +50,7 @@ export default function Questionnaire( props, coords ) {
     //const [errorMsg, setErrorMsg] = useState(null);
     //const [test, setTest] = useState({});
     
-   
+   console.log(data);
 
    /*function handleSubmit() {
         const db = firebase.database();
@@ -83,6 +89,7 @@ export default function Questionnaire( props, coords ) {
             db
             .ref(`/questionnaires/`)
             .push({
+                uid: data.googleId,
                 title: title,
                 creator: {creatorAuthor, user},
                 date: {dateCreator, dateUser},
@@ -102,7 +109,7 @@ export default function Questionnaire( props, coords ) {
             setDateUser('');
             //setCustomFields([]);
             setQuestions([]);
-            history.push('/questlist');
+            history.push({pathname: '/questlist', state: {uid2: data}});
         }
     }
 
@@ -155,12 +162,12 @@ export default function Questionnaire( props, coords ) {
         setQuestions(questions.splice(0,questions.length-1))
     };
 
-    console.log(title);
-    console.log(creatorAuthor);
-    console.log(user);
-    console.log(dateCreator);
-    console.log(dateUser);
-    console.log(questions);
+    //console.log(title);
+    //console.log(creatorAuthor);
+    //console.log(user);
+    //console.log(dateCreator);
+    //console.log(dateUser);
+    //console.log(questions);
 
     /*function onChangeHandler(event) {
         setTitle(event.target.value);
@@ -308,7 +315,7 @@ export default function Questionnaire( props, coords ) {
 
                     <FormRow>
                         
-                        <Text>{`Latitude: ${latitude}`} </Text>
+                        <Text style={{paddingRight: 26}}>{`Latitude: ${latitude}`} </Text>
                         <Text>{`Longitude: ${longitude}`}</Text>
                         
                     </FormRow>

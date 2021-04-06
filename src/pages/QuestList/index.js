@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ViewList } from './styles';
 import QuestCard from '../../components/QuestCard';
 import AddQuestCard from '../../components/AddQuestCard';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 
 import firebase from '@firebase/app';
 import '@firebase/database';
 //import history from '../../History';
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function QuestList({ navigation }) {
     //const title = navigation.getParam('title');
@@ -14,7 +16,13 @@ export default function QuestList({ navigation }) {
     //const [user, setUser] = useState('');
     //const [dateCreator, setDateCreator] = useState('');
     //const [dateUser, setDateUser] = useState('');
-   // const [customFields, setCustomFields] = useState([{}]);
+    // const [customFields, setCustomFields] = useState([{}]);
+    const location = useLocation();
+    const { uid2 } = location.state;
+    //console.log('teste:', uid2)
+
+    const [googleId, setGoogleId] = useState(uid2);
+
     const [data, setData] = useState([]);
 
     //const [active, setActive] = useState(false);
@@ -48,7 +56,8 @@ export default function QuestList({ navigation }) {
     
   }, []);
 
-  console.log(data);
+  //console.log(data);
+  console.log(googleId);
   
   let history = useHistory();
 
@@ -61,9 +70,10 @@ export default function QuestList({ navigation }) {
               ?
               <div>
                 <QuestCard 
+                  key={index}
                     title={item.title}
                     isFirstColumn={isEven(index)}
-                    onNavigate={() => history.push({pathname: '/questanswer', state: { dataItem: item }})}
+                    onNavigate={() => history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: googleId }})}
                 /> 
               </div>
               : null
