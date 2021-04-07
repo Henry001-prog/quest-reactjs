@@ -40,8 +40,8 @@ export default function Questionnaire( props, coords ) {
     const [nameError3, setNameError3] = useState('');
     //const [nameError4, setNameError4] = useState('');
     //const [nameError5, setNameError5] = useState('');
-    const [question, setQuestion] = useState('');
-    const [latitude, setLat] = useState('');
+    //const [question, setQuestion] = useState('');
+    const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     //const [answer, setAnswer] = useState('');
     //const [location, setLocation] = useState();
@@ -94,8 +94,8 @@ export default function Questionnaire( props, coords ) {
                 creator: {creatorAuthor, user},
                 date: {dateCreator, dateUser},
                 customField: questions,
-                //latitude: text,
-                //longitude: text2
+                latitude: latitude,
+                longitude: longitude
             });
             setNameError(() => (null));
             setNameError2(() => (null));
@@ -137,16 +137,26 @@ export default function Questionnaire( props, coords ) {
         setQuestions([...questions, {...blankQuest}]);
     }
     
-    const blankQuest = { quests: '', ans: '' };
+    const blankQuest = { quest: '', ans: '' };
 
     const [questions, setQuestions] = useState([
         {...blankQuest}
     ]);
+    
 
-    function OnCustomInputNameHandler(value, index, className) {
+    const handleQuestChange = (e) => {
+    const updatedQuest = [...questions];
+    updatedQuest[e.target.dataset.idx][e.target.className] = e.target.value;
+    console.log(updatedQuest);
+    setQuestions(updatedQuest);
+    };
+
+    /*function OnCustomInputNameHandler(e, index, className) {
         const updatedQuest = [...questions];
-        updatedQuest[index].quests = value;
+        updatedQuest[e.target.dataset.key][e.target.className] = e.target.value;
+        
         setQuestions(updatedQuest);
+        console.log(questions)
         setQuestion(updatedQuest)
         //console.log(questions)
     }
@@ -156,7 +166,7 @@ export default function Questionnaire( props, coords ) {
         updatedQuest2[index].ans = value;
         setQuestions(updatedQuest2);
         //console.log(questions)
-    }
+    }*/
 
     function remove() {
         setQuestions(questions.splice(0,questions.length-1))
@@ -191,7 +201,7 @@ export default function Questionnaire( props, coords ) {
         console.log("Longitude is :", position.coords.longitude);
         let latitude =  position.coords.latitude;
         let longitude =  position.coords.longitude;
-        setLat(latitude);
+        setLatitude(latitude);
         setLongitude(longitude);
         });
     }, []);
@@ -255,7 +265,7 @@ export default function Questionnaire( props, coords ) {
                                 type='text'
                                 value={dateCreator} 
                                 onChange={(e) => setDateCreator(e.target.value)}
-                                placeholder='Data de criação do formulário'
+                                placeholder='Data do formulário'
                             />
                             {!!nameError3 && (
                                 <Text style={{ color: 'red', textAlign: 'center', }}>{nameError3}</Text>
@@ -273,45 +283,48 @@ export default function Questionnaire( props, coords ) {
                     </FormRow>
 
                     {
-                        questions.map((customInput, key) => {
-
-                            return(
-                                <FormRow key={key}>
-                                        <TextArea 
-                                            style={{marginBottom: 20, paddingTop: 10}}
-                                            placeholderTextColor= '#808080'
-                                            value={customInput.key} 
-                                            onChangeText={(name, className) => {OnCustomInputNameHandler(name, key, className)}}
-                                            placeholder='Pergunta'
-                                            className='quest'
-                                            dataIndex={key}
-                                        />
-                                        <br/>
-                                        {/*!!nameError4 && (
-                                            <Text style={{ color: 'red', textAlign: 'center', }}>{nameError4}</Text>
-                                        )*/}
-                                        <TextArea 
-                                            style={{marginBottom: 20, paddingTop: 10}}
-                                            placeholderTextColor= '#808080'
-                                            value={customInput.key}
-                                            onChangeText={(value, className) => {OnCustomInputKeyHandler(value)}}
-                                            placeholder='Resposta'
-                                            className='ans'
-                                            dataIndex={key}
-                                        />
-                                    <ViewButton>
-                                        <Button title='Delete' style={{color: 'white', background: '#FF0004'}} onClick={() => {remove()}}>Remover</Button>
-                                    </ViewButton>
-                                </FormRow>
-                            )
+                        questions.map((val, idx) => {
+                            const catId = `quest-${idx}`;
+                            const ageId = `ans-${idx}`;
+                            return (
+                            <FormRow key={`quest-${idx}`}>
+                                <input
+                                    style={styles.textarea}
+                                    placeholder="Pergunta"
+                                    name={catId}
+                                    data-idx={idx}
+                                    id={catId}
+                                    className="quest" 
+                                    value={questions[idx].quest}
+                                    onChange={handleQuestChange}
+                                />
+                                
+                                <input
+                                    style={styles.textarea}
+                                    placeholder="Resposta"
+                                    type="text"
+                                    name={ageId}
+                                    data-idx={idx}
+                                    id={ageId}
+                                    className="ans"
+                                    value={questions[idx].ans}
+                                    onChange={handleQuestChange}
+                                />
+                                <ViewButton>
+                                    <Button style={{color: 'white', background: '#FF0004'}} onClick={() => {remove()}}>Remover</Button>
+                                </ViewButton>
+                            </FormRow>
+                            );      
                         })
                     }
+                    
                     <ViewButton>
                         <Button1
-                            title='Criar Campo'
                             onClick={() => {addInput()}}
                         >Criar Campo</Button1>
                     </ViewButton>
+
+                    
 
                     <FormRow>
                         
@@ -322,7 +335,6 @@ export default function Questionnaire( props, coords ) {
 
                     <ViewButton>
                         <Button
-                            title='Salvar'
                             style={{color: 'white', background: 'blue', marginTop: '3%', marginBottom: '3%'}}
                             onClick={() => {handleSubmit()}}
                         >Salvar</Button>
@@ -375,7 +387,7 @@ export default function Questionnaire( props, coords ) {
                                 type='text'
                                 value={dateCreator} 
                                 onChange={(e) => setDateCreator(e.target.value)}
-                                placeholder='Data de criação do formulário'
+                                placeholder='Data do formulário'
                             />
                             {!!nameError3 && (
                                 <Text style={{ color: 'red', textAlign: 'center', }}>{nameError3}</Text>
@@ -393,45 +405,47 @@ export default function Questionnaire( props, coords ) {
                     </FormRow>
 
                     {
-                        questions.map((customInput, key) => {
-
-                            return(
-                                <FormRow key={key}>
-                                        <TextArea2 
-                                            style={{marginBottom: 20, paddingTop: 10}}
-                                            placeholderTextColor= '#808080'
-                                            value={customInput.key} 
-                                            onChangeText={(name, className) => {OnCustomInputNameHandler(name, key, className)}}
-                                            placeholder='Pergunta'
-                                            className='quest'
-                                            dataIndex={key}
-                                        />
-                                        <br/>
-                                        {/*!!nameError4 && (
-                                            <Text style={{ color: 'red', textAlign: 'center', }}>{nameError4}</Text>
-                                        )*/}
-                                        <TextArea2 
-                                            style={{marginBottom: 20, paddingTop: 10}}
-                                            placeholderTextColor= '#808080'
-                                            value={customInput.key}
-                                            onChangeText={(value, className) => {OnCustomInputKeyHandler(value)}}
-                                            placeholder='Resposta'
-                                            className='ans'
-                                            dataIndex={key}
-                                        />
-                                    <ViewButton>
-                                        <Button title='Delete' style={{color: 'white', background: '#FF0004'}} onClick={() => remove()}>Remover</Button>
-                                    </ViewButton>
-                                </FormRow>
-                            )
+                        questions.map((val, idx) => {
+                            const catId = `quest-${idx}`;
+                            const ageId = `ans-${idx}`;
+                            return (
+                            <FormRow key={`quest-${idx}`}>
+                                <input
+                                    style={styles.textarea2}
+                                    placeholder="Pergunta"
+                                    name={catId}
+                                    data-idx={idx}
+                                    id={catId}
+                                    className="quest" 
+                                    value={questions[idx].quest}
+                                    onChange={handleQuestChange}
+                                />
+                                
+                                <input
+                                    style={styles.textarea2}
+                                    placeholder="Resposta"
+                                    type="text"
+                                    name={ageId}
+                                    data-idx={idx}
+                                    id={ageId}
+                                    className="ans"
+                                    value={questions[idx].ans}
+                                    onChange={handleQuestChange}
+                                />
+                                <ViewButton>
+                                    <Button style={{color: 'white', background: '#FF0004'}} onClick={() => {remove()}}>Remover</Button>
+                                </ViewButton>
+                            </FormRow>
+                            );      
                         })
                     }
+                    
                     <ViewButton>
                         <Button1
-                            title='Criar Campo'
                             onClick={() => {addInput()}}
                         >Criar Campo</Button1>
                     </ViewButton>
+
 
                     <FormRow>
                         
@@ -442,7 +456,6 @@ export default function Questionnaire( props, coords ) {
 
                     <ViewButton>
                         <Button
-                            title='Salvar'
                             style={{color: 'white', background: 'blue', marginTop: '3%', marginBottom: '3%', height: 40, width: 80}}
                             onClick={() => {handleSubmit()}}
                         >Salvar</Button>
@@ -452,4 +465,50 @@ export default function Questionnaire( props, coords ) {
         </div>
     );
 }
+
+
+
+const styles = {
+    textarea: {
+        backgroundColor: '#00000000',
+        paddingLeft: '5px',
+        flex: 1,
+        padding: '0.5em',
+        paddingRight: '5px',
+        paddingBottom: '5px',
+        height: '100px',
+        borderWidth: '2px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '3px',
+        borderColor: 'white',
+        color: 'white',
+        fontSize: '17px',
+        outline: 'none',
+        textAlign: 'center',
+        marginBottom: 20, 
+        paddingTop: 10,
+    },
+    textarea2: {
+        backgroundColor: '#00000000',
+        paddingLeft: '5px',
+        flex: 1,
+        padding: '0.5em',
+        paddingRight: '5px',
+        paddingBottom: '5px',
+        height: '100px',
+        width: '400px',
+        borderWidth: '2px',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '3px',
+        borderColor: 'white',
+        color: 'white',
+        fontSize: '17px',
+        outline: 'none',
+        textAlign: 'center',
+        marginBottom: 20, 
+        paddingTop: 10,
+    }
+};
 

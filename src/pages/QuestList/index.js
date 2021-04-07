@@ -66,11 +66,11 @@ export default function QuestList({ navigation }) {
   return (
       <ViewList>
             {data.map((item, index) => (
-              item.creator.user.trim() === ''
+              !item.uid2
               ?
               <div>
                 <QuestCard 
-                  key={index}
+                    key={index}
                     title={item.title}
                     isFirstColumn={isEven(index)}
                     onNavigate={() => history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: googleId }})}

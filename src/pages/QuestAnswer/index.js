@@ -42,7 +42,7 @@ export default function QuestList({ props }) {
 
     //const datas = {...data, ...data3}; //pode ser um array ou object
 
-    console.log(data);
+    console.log(data3);
 
     //console.log('uid2:', JSON.stringify(data2.googleId));
 
@@ -50,8 +50,8 @@ export default function QuestList({ props }) {
     function handleUpdate() {
         const db = firebase.database();
         db
-        .ref(`/questionnaires/${data.id}`)
-        .push(...data, ...data3);
+        .ref(`/questionnaires/`)
+        .push({data, uid2: data3});
         //.push(datas);
         //setData('');
         //navigation.navigate('QuestList');
@@ -62,7 +62,7 @@ export default function QuestList({ props }) {
             setNameError(() => ('Necessário preencher o campo usuário.'));
         } else {
             setNameError(() => (null));
-            history.push('questlist');
+            history.push({pathname: 'questlist', state: {uid2: data3}});
         }
     }
 
