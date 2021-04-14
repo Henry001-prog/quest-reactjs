@@ -10,6 +10,8 @@ import '@firebase/database';
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
+import Loader from "react-loader-spinner";
+
 export default function QuestList({ navigation }) {
     //const title = navigation.getParam('title');
     //const [creatorAuthor, setCreatorAuthor] = useState('');
@@ -21,15 +23,24 @@ export default function QuestList({ navigation }) {
     const { uid2 } = location.state;
     //console.log('teste:', uid2)
 
-    const [googleId, setGoogleId] = useState(uid2);
+    const [data3, setData3] = useState(uid2);
+    console.log('testando:', data3);
+    const uid = JSON.stringify(data3.googleId); //aqui eu separo o googleId em formato de string
+    console.log('string:', uid);
+    const [googleId, setGoogleId] = useState(uid);
+     
+    console.log('testando2:', googleId); 
+    
 
     const [data, setData] = useState([]);
 
-    //const [active, setActive] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+      let unmounted = false;
       const db = firebase.database();
-      db.ref('/questionnaires/')
+      if (!unmounted) {
+        db.ref('/questionnaires/')
         .on('value', snapshot => {
           
           //const response = snapshot.val();
@@ -41,6 +52,8 @@ export default function QuestList({ navigation }) {
           return { ...response[id], id }
           });
           setData(questWithKeys);
+          setLoading(false);
+          
           //const values = Object.values(response);
 
           /*const questions = values.filter(data2 => data2.customField)
@@ -53,11 +66,15 @@ export default function QuestList({ navigation }) {
               
         
         });
+      }
+
+      return () => { unmounted = true };
+      
     
   }, []);
 
   //console.log(data);
-  console.log(googleId);
+  //console.log(googleId);
   
   let history = useHistory();
 
@@ -65,15 +82,26 @@ export default function QuestList({ navigation }) {
 
   return (
       <ViewList>
-            {data.map((item, index) => (
+        { loading ?
+        <div style={styles.loading}>
+          <Loader
+            type="Oval"
+            color="#00BFFF"
+            height={100}
+            width={100}
+          />
+        </div>
+        :
+        <div>
+          {data.map((item, index) => (
               !item.uid2
               ?
-              <div>
+              <div key={index}>
                 <QuestCard 
-                    key={index}
+                    keyid={item.id}
                     title={item.title}
                     isFirstColumn={isEven(index)}
-                    onNavigate={() => history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: googleId }})}
+                    onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: googleId }})}}
                 /> 
               </div>
               : null
@@ -82,6 +110,21 @@ export default function QuestList({ navigation }) {
         <AddQuestCard   
           onNavigate={() => history.push('/')} 
         />
+        </div>
+        }   
       </ViewList>
   );
 }
+
+const styles = {
+  loading: {
+    backgroundColor: 'gray', 
+    height: 700, 
+    width: '100%', 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    flex: 1, 
+    flexDirection: 'column'
+  }
+};

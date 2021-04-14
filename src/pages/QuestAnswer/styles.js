@@ -83,6 +83,8 @@ export const TextArea = styled.textarea`
     font-size: 17px;
     outline: none;
     text-align: left; // alinha o texto do usuário
+    margin-bottom: 20px;
+    padding-top: 10px;
     ::placeholder {
         text-align: center; // alinha o placeholder
     }
@@ -110,6 +112,8 @@ export const TextArea2 = styled.textarea`
     font-size: 17px;
     outline: none;
     text-align: left; // alinha o texto do usuário
+    margin-bottom: 20px;
+    padding-top: 10px;
     ::placeholder {
         text-align: center; // alinha o placeholder
     }

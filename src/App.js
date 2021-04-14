@@ -3,6 +3,8 @@ import Questionnaire from './pages/Questionnaire';
 import QuestList from './pages/QuestList';
 import QuestAnswer from './pages/QuestAnswer';
 import LoginPage from './pages/LoginPage';
+import Redirect from './pages/Redirect';
+
 import history from './History';
 
 import { Router, Switch, Route } from 'react-router-dom';
@@ -12,7 +14,7 @@ function App() {
     <Router history={history}>
       <div className="App">
         <Switch>
-        <Route exact path="/">
+          <Route exact path="/">
             <LoginPage />
           </Route>
           <Route path="/questionnaire">
@@ -23,6 +25,9 @@ function App() {
           </Route>
           <Route path="/questanswer">
             <QuestAnswer />
+          </Route>
+          <Route path="/redirect">
+            <Redirect />
           </Route>
         </Switch>
       </div>

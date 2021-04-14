@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import { QuestsCard, QuestCardMobile, Card, Card2, Image, CardTitleWrapper, CardTitle } from './styles';
 
-export default function QuestCard({ isFirstColumn, onNavigate, title }) {
+export default function QuestCard({ isFirstColumn, onNavigate, title, keyid }) {
 
     const [width, setWidth] = useState(window.innerWidth);
     const breakpoint = 620;
@@ -19,9 +19,10 @@ export default function QuestCard({ isFirstColumn, onNavigate, title }) {
 
     return (
         width < breakpoint ? 
-        <div>
+        <div keyid={keyid}>
             <QuestCardMobile
                 isFirstColumn={isFirstColumn}
+                keyid={keyid}
                 onClick={onNavigate}
             >
                 <Image
@@ -38,9 +39,10 @@ export default function QuestCard({ isFirstColumn, onNavigate, title }) {
             </QuestCardMobile>
         </div>
         :
-        <div>
+        <div keyid={keyid}>
             <QuestsCard
                 isFirstColumn={isFirstColumn}
+                keyid={keyid}
                 onClick={onNavigate}
             >
                 <Image

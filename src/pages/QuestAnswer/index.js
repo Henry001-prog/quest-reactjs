@@ -33,38 +33,55 @@ export default function QuestList({ props }) {
     //const  uid2  = location.state.dataItem.googleId;
 
     const [data2, setData2] = useState(uid2);
-    const googleId = JSON.stringify(data2.googleId); //aqui eu separo o googleId em formato de string
+    console.log('olá:', data2);
+    //const googleId = JSON.stringify(data2.googleId); //aqui eu separo o googleId em formato de string
     
-    const [data3, setData3] = useState(googleId); // aqui eu coloco o googleId dentro da variável googleId
-    console.log('test:', data3)
+    //const [data3, setData3] = useState(googleId); // aqui eu coloco o googleId dentro da variável googleId
+    //console.log('test:', data3)
 
     const [nameError, setNameError] = useState('');
 
     //const datas = {...data, ...data3}; //pode ser um array ou object
 
-    console.log(data3);
+    console.log(data);
+    console.log(data2);
 
     //console.log('uid2:', JSON.stringify(data2.googleId));
 
 
     function handleUpdate() {
-        const db = firebase.database();
-        db
-        .ref(`/questionnaires/`)
-        .push({data, uid2: data3});
-        //.push(datas);
-        //setData('');
-        //navigation.navigate('QuestList');
-    }
-
-    function error() {
         if (data.creator.user.trim() === '') {
             setNameError(() => ('Necessário preencher o campo usuário.'));
         } else {
             setNameError(() => (null));
-            history.push({pathname: 'questlist', state: {uid2: data3}});
+            const db = firebase.database();
+            db
+            .ref(`/questionnaires/`)
+            .push({data, uid2: data2});
+            history.push({pathname: 'redirect'});
         }
     }
+
+    function handleRemove() {
+        const db = firebase.database();
+        db
+        .ref(`/questionnaires/${data.id}`)
+        .remove();
+        history.push({pathname: 'redirect'});
+    }
+
+    /*function error() {
+        if (data.creator.user.trim() === '') {
+            setNameError(() => ('Necessário preencher o campo usuário.'));
+        } else {
+            setNameError(() => (null));
+            const db = firebase.database();
+            db
+            .ref(`/questionnaires/`)
+            .push({data, uid2: data2});
+            history.push({pathname: 'questlist', state: {uid2: data2}});
+        }
+    }*/
 
     const { width } = useViewport();
     const breakpoint = 620;
@@ -105,7 +122,7 @@ export default function QuestList({ props }) {
                     {
                         data.customField.map((q, id) => (
                             <FormRow key={id}>
-                                <Text>{q.quests}</Text>
+                                <Text>{q.quest}</Text>
                                 <TextArea
                                     style={{marginBottom: 20}}
                                     placeholderTextColor= '#808080'
@@ -130,16 +147,16 @@ export default function QuestList({ props }) {
                 <ViewButton>
                     <Button
                         style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                        onClick={() => {handleUpdate(); error()}}
+                        onClick={() => {handleUpdate()}}
                     >Salvar</Button>
                 </ViewButton>
                 {
-                    uid === data3
+                    uid === data2
                     ?
                     <ViewButton>
                         <Button
                             style={{color: 'white', background: 'red', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                            onClick={() => {handleUpdate(); error()}}
+                            onClick={() => {handleRemove()}}
                         >Deletar</Button>
                     </ViewButton>
                     : null
@@ -185,7 +202,7 @@ export default function QuestList({ props }) {
                 {
                     data.customField.map((q, id) => (
                         <FormRow key={id}>
-                            <Text>{q.quests}</Text>
+                            <Text>{q.quest}</Text>
                             <TextArea2
                                 style={{marginBottom: 20}}
                                 placeholderTextColor= '#808080'
@@ -210,16 +227,16 @@ export default function QuestList({ props }) {
             <ViewButton>
                 <Button
                     style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                    onClick={() => {handleUpdate(); error()}}
+                    onClick={() => {handleUpdate()}}
                 >Salvar</Button>
             </ViewButton>
             {
-            uid === data3
+            uid === data2
             ?
             <ViewButton>
                 <Button
                     style={{color: 'white', background: 'red', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                    onClick={() => {handleUpdate(); error()}}
+                    onClick={() => {handleRemove()}}
                 >Deletar</Button>
             </ViewButton>
             : null
