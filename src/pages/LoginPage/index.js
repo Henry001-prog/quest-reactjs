@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import firebase from '@firebase/app';
 import '@firebase/database';
 import "firebase/auth";
 
-import ReactDOM from 'react-dom';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+
+import { GoogleLogin } from 'react-google-login';
 // or
 
+import Loader from "react-loader-spinner";
 
-import { 
-    ScrollView,
-    ScrollView2,
-    ViewButton,
-    Button,
-    Text 
-} from './styles';
 
 import history from '../../History';
+import useViewport from '../../resources/responsive';
 
 export default function LoginPage() {
 
-    const [users, setUsers] = useState();
+    const [loading, setLoading] = useState(false);
 
     const clientId = '625117253701-s8cmkt6i5k86un937u4dp5ulbf0bl11b.apps.googleusercontent.com';
 
@@ -42,8 +36,10 @@ export default function LoginPage() {
     };
 
     const onSuccess = async (res) => {
+        setLoading(true);
         history.push({pathname: '/questionnaire', state: { dataItem: res }})
         console.log('[Login Success] currentUser:', res);
+        setLoading(false);
 
         refreshTokenSetup(res);
     };
@@ -51,35 +47,66 @@ export default function LoginPage() {
     const onFailure = (res) => {
         console.log('[Login failed] res:', res);
     };
-    
 
-    const onSuccessLogout = async (res) => {
-        alert('Logout made successfully');
-    };
+    function renderLoading() {
+        if (loading)
+            return <Loader type="Oval" color="#00BFFF" height={100} width={100} />;
+        return null;
+    }
 
+    const { width } = useViewport();
+    const breakpoint = 620;
 
     return (
-        <div style={{backgroundColor: 'gray', height: 1000, width: '100%'}}>
-            <div style={{ paddingTop: 430}}>
-            <GoogleLogin
-                clientId={clientId}
-                buttonText="Login"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy={'single_host_origin'}
-                style={{marginTop: '100px'}}
-                isSignedIn={true}
-            />
-            <GoogleLogout
-                clientId={clientId}
-                buttonText="Logout"
-                onLogoutSuccess={onSuccessLogout}
-            >
-            </GoogleLogout>
+        width < breakpoint ?
+        <div style={styles.divLoginMobile}>
+            <div style={{display: 'flex', padding: 50, textAlign: 'center', fontSize: 30}}>Faça o login para poder começar a criar e responder formulários.</div>
+                <GoogleLogin
+                    clientId={clientId}
+                    buttonText="Login"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single_host_origin'}
+                />
+                {renderLoading}
         </div>
+
+        :
+
+        <div style={styles.divLoginDesktop}>
+            <div style={{display: 'flex',  textAlign: 'center', paddingBottom: 60, fontSize: 30}}>Faça o login para poder começar a criar e responder formulários.</div>
+                <GoogleLogin
+                    clientId={clientId}
+                    buttonText="Login"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single_host_origin'}
+                />
+                {renderLoading}
         </div>
         
         
     );
 
 }
+
+const styles = {
+    divLoginDesktop: {
+        flexDirection: 'column',
+        backgroundColor: 'gray', 
+        height: 936, 
+        width: '100%', 
+        display: 'flex',
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    divLoginMobile: {
+        flexDirection: 'column',
+        backgroundColor: 'gray', 
+        height: 923, 
+        width: '100%', 
+        display: 'flex',
+        justifyContent: 'center', 
+        alignItems: 'center'
+    }
+};

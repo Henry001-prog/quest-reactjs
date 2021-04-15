@@ -60,6 +60,9 @@ export default function LoginPage() {
           />
           <GoogleLogin
             clientId={clientId}
+            render={renderProps => (
+              <button onClick={renderProps.onClick} disabled={renderProps.disabled} style={{backgroundColor: 'transparent', border: 'transparent'}}></button>
+            )}
             buttonText="Login"
             onSuccess={onSuccess}
             onFailure={onFailure}
@@ -67,12 +70,7 @@ export default function LoginPage() {
             style={{marginTop: '100px'}}
             isSignedIn={true}
           />
-          <GoogleLogout
-            clientId={clientId}
-            buttonText="Logout"
-            onLogoutSuccess={onSuccessLogout}
-          >
-          </GoogleLogout>
+
         </div> 
     );
 

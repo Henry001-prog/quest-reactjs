@@ -23,6 +23,8 @@ export default function QuestList({ navigation }) {
     const { uid2 } = location.state;
     //console.log('teste:', uid2)
 
+    const clientId = '625117253701-s8cmkt6i5k86un937u4dp5ulbf0bl11b.apps.googleusercontent.com';
+
     const [data3, setData3] = useState(uid2);
     console.log('testando:', data3);
     const uid = JSON.stringify(data3.googleId); //aqui eu separo o googleId em formato de string
@@ -35,6 +37,11 @@ export default function QuestList({ navigation }) {
     const [data, setData] = useState([]);
 
     const [loading, setLoading] = useState(true);
+
+    const onSuccessLogout = async (res) => {
+      alert('Logout feito com sucesso!');
+      history.push({pathname: '/'});
+    };
 
     useEffect(() => {
       let unmounted = false;
@@ -82,6 +89,15 @@ export default function QuestList({ navigation }) {
 
   return (
       <ViewList>
+        <div style={styles.divLogout}>
+          <GoogleLogout
+              clientId={clientId}
+              buttonText="Logout"
+              onLogoutSuccess={onSuccessLogout}
+          >
+          </GoogleLogout>
+        </div>
+
         { loading ?
         <div style={styles.loading}>
           <Loader
@@ -119,12 +135,21 @@ export default function QuestList({ navigation }) {
 const styles = {
   loading: {
     backgroundColor: 'gray', 
-    height: 700, 
+    height: 873, 
     width: '100%', 
     display: 'flex', 
     alignItems: 'center', 
     justifyContent: 'center', 
     flex: 1, 
     flexDirection: 'column'
-  }
+  },
+  divLogout: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end', 
+    alignItems: 'flex-start', 
+    padding: 10,
+    paddingRight: 15,
+    cursor: 'pointer'
+  },
 };
