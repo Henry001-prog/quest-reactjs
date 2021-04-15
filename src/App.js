@@ -1,8 +1,10 @@
 import './App.css';
+
+import LoginPage from './pages/LoginPage';
 import Questionnaire from './pages/Questionnaire';
 import QuestList from './pages/QuestList';
 import QuestAnswer from './pages/QuestAnswer';
-import LoginPage from './pages/LoginPage';
+import MyQuests from './pages/MyQuests';
 import Redirect from './pages/Redirect';
 
 import history from './History';
@@ -25,6 +27,9 @@ function App() {
           </Route>
           <Route path="/questanswer">
             <QuestAnswer />
+          </Route>
+          <Route path="/myquests">
+            <MyQuests />
           </Route>
           <Route path="/redirect">
             <Redirect />

@@ -68,7 +68,7 @@ export default function LoginPage() {
                     onFailure={onFailure}
                     cookiePolicy={'single_host_origin'}
                 />
-                {renderLoading}
+                {renderLoading()}
         </div>
 
         :
@@ -82,7 +82,7 @@ export default function LoginPage() {
                     onFailure={onFailure}
                     cookiePolicy={'single_host_origin'}
                 />
-                {renderLoading}
+                {renderLoading()}
         </div>
         
         
@@ -94,7 +94,7 @@ const styles = {
     divLoginDesktop: {
         flexDirection: 'column',
         backgroundColor: 'gray', 
-        height: 936, 
+        height: '100vh', 
         width: '100%', 
         display: 'flex',
         justifyContent: 'center', 
@@ -103,7 +103,7 @@ const styles = {
     divLoginMobile: {
         flexDirection: 'column',
         backgroundColor: 'gray', 
-        height: 923, 
+        height: '100vh', 
         width: '100%', 
         display: 'flex',
         justifyContent: 'center', 

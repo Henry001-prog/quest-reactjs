@@ -6,7 +6,7 @@ export const AddQuestsCard = styled.button`
     padding: ${props => (props.isFirstColumn ? '5px 5px 5px 10px' : '5px 10px 5px 5px')};
     background-color: transparent;
     border: transparent;
-    margin-top: 8%;
+    margin-top: 7%;
     margin-bottom: 2%;
     cursor: pointer;
     outline: none;

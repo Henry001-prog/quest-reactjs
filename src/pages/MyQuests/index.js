@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ViewList, ViewButton, Button1 } from './styles';
+import { ViewList } from './styles';
 import QuestCard from '../../components/QuestCard';
 import AddQuestCard from '../../components/AddQuestCard';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -43,42 +43,6 @@ export default function QuestList({ navigation }) {
       history.push({pathname: '/'});
     };
 
-    useEffect(() => {
-      let unmounted = false;
-      const db = firebase.database();
-      if (!unmounted) {
-        db.ref('/questionnaires/')
-        .on('value', snapshot => {
-          
-          //const response = snapshot.val();
-          //console.log('value', snapshot.val());
-          const response = snapshot.val();
-          //console.log(response);
-          const keys = Object.keys(response);
-          const questWithKeys = keys.map(id => {
-          return { ...response[id], id }
-          });
-          setData(questWithKeys);
-          setLoading(false);
-          
-          //const values = Object.values(response);
-
-          /*const questions = values.filter(data2 => data2.customField)
-                                  .map((res) => res.customField)
-                                  .flat(Infinity);
-
-          setData2({ ...data2, questions: [...questions] });*/
-          //console.log(questWithKeys); 
-          //return { data: questWithKeys };
-              
-        
-        });
-      }
-
-      return () => { unmounted = true };
-      
-    
-  }, []);
 
   //console.log(data);
   //console.log(googleId);
@@ -89,7 +53,6 @@ export default function QuestList({ navigation }) {
 
   return (
       <ViewList>
-        
         <div style={styles.divLogout}>
           <GoogleLogout
               clientId={clientId}
@@ -110,7 +73,6 @@ export default function QuestList({ navigation }) {
         </div>
         :
         <div>
-         
           {data.map((item, index) => (
               !item.uid2
               ?
@@ -124,11 +86,7 @@ export default function QuestList({ navigation }) {
               </div>
               : null
             ))}
-        <ViewButton>
-          <Button1
-            onClick={() => history.push('/myquests')}
-          >Exbir seus formulários e as respostas</Button1>
-        </ViewButton>    
+            
         <AddQuestCard   
           onNavigate={() => history.push('/')} 
         />
@@ -139,8 +97,9 @@ export default function QuestList({ navigation }) {
 }
 
 const styles = {
-  loading: { 
-    height: '100vh', 
+  loading: {
+    backgroundColor: 'gray', 
+    height: 873, 
     width: '100%', 
     display: 'flex', 
     alignItems: 'center', 
@@ -154,7 +113,6 @@ const styles = {
     justifyContent: 'flex-end', 
     alignItems: 'flex-start', 
     padding: 10,
-    margin: 0,
     paddingRight: 15,
     cursor: 'pointer'
   },
