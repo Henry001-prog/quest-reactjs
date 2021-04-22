@@ -126,7 +126,7 @@ export default function QuestList({ navigation }) {
             ))}
         <ViewButton>
           <Button1
-            onClick={() => history.push('/myquests')}
+            onClick={() => history.push({pathname: '/myquests', state: { items: data }, state2: { uid2: googleId }})}
           >Exbir seus formulários e as respostas</Button1>
         </ViewButton>    
         <AddQuestCard   

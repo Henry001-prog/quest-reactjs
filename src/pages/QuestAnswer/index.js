@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import useViewport from '../../resources/responsive';
 
 import { 
-    ScrollView,
-    ScrollView2,
+    ScrollViewMobile,
+    ScrollViewDesktop,
     TextInput,
     TextInput2,
     TextArea,
@@ -30,6 +30,7 @@ export default function QuestList({ props }) {
 
     
     const {uid2} = location.state2;
+    const {uid3} = location.state3;
     //const  uid2  = location.state.dataItem.googleId;
 
     const [data2, setData2] = useState(uid2);
@@ -89,20 +90,25 @@ export default function QuestList({ props }) {
     return (
         width < breakpoint ?
         <div style={{backgroundColor: '#595959', flex: 1}}>
-            <ScrollView>
+            <ScrollViewMobile>
                 <FormRow first>
                         <Text>{data.title}</Text>
                 </FormRow>
 
                 <FormRow>
                     <Text>{data.creator.creatorAuthor}</Text>
-                    <TextInput
-                        style={{marginBottom: 20}}
-                        placeholderTextColor= '#808080'
-                        value={data.creator.user}
-                        onChange={(e) => setData({ ...data, creator: {...data.creator, user: e.target.value} })}
-                        placeholder='Usuário'
-                    />
+                    { !uid3.uid2 ?
+                        <TextInput
+                            style={{marginBottom: 20}}
+                            placeholderTextColor= '#808080'
+                            value={data.creator.user}
+                            onChange={(e) => setData({ ...data, creator: {...data.creator, user: e.target.value} })}
+                            placeholder='Usuário'
+                        />
+                        :
+                        <Text>{data.creator.user}</Text>
+                    }
+                    
                     {!!nameError && (
                         <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
                     )}
@@ -110,29 +116,39 @@ export default function QuestList({ props }) {
 
                 <FormRow>
                     <Text>{data.date.dateCreator}</Text>
-                    <TextInput
-                        style={{marginBottom: 20}}
-                        placeholderTextColor= '#808080'
-                        value={data.date.dateUser}
-                        onChange={(e) => setData({ ...data, date: {...data.date, dateUser: e.target.value} })}
-                        placeholder='Data das repostas'        
-                    />
+                    { !uid3.uid2 ?
+                        <TextInput
+                            style={{marginBottom: 20}}
+                            placeholderTextColor= '#808080'
+                            value={data.date.dateUser}
+                            onChange={(e) => setData({ ...data, date: {...data.date, dateUser: e.target.value} })}
+                            placeholder='Data das repostas'        
+                        />
+                        :
+                        <Text>{data.date.dateUser}</Text>
+                    }
+                    
                 </FormRow>
 
                     {
                         data.customField.map((q, id) => (
                             <FormRow key={id}>
                                 <Text>{q.quest}</Text>
-                                <TextArea
-                                    style={{marginBottom: 20}}
-                                    placeholderTextColor= '#808080'
-                                    value={q.ans}
-                                    onChange={(e) => { 
-                                        const updated = [...data.customField]; updated[id].ans = e.target.value; 
-                                        setData({ ...data, customField: updated }); }
-                                    }
-                                    placeholder='Resposta'
-                                />
+                                { !uid3.uid2 ?
+                                    <TextArea
+                                        style={{marginBottom: 20}}
+                                        placeholderTextColor= '#808080'
+                                        value={q.ans}
+                                        onChange={(e) => { 
+                                            const updated = [...data.customField]; updated[id].ans = e.target.value; 
+                                            setData({ ...data, customField: updated }); }
+                                        }
+                                        placeholder='Resposta'
+                                    />
+                                    :
+                                    <Text>{q.ans}</Text>
+                                }
+                                
                             </FormRow>
                                 
 
@@ -143,15 +159,21 @@ export default function QuestList({ props }) {
                     <Text>{data.latitude}</Text>
                     <Text>{data.longitude}</Text>
                 </FormRow>
+                
+                { 
+                    !uid3.uid2 ?
+                        <ViewButton>
+                            <Button
+                                style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                                onClick={() => {handleUpdate()}}
+                            >Salvar</Button>
+                        </ViewButton>
+                        :
+                        null
+                }
 
-                <ViewButton>
-                    <Button
-                        style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                        onClick={() => {handleUpdate()}}
-                    >Salvar</Button>
-                </ViewButton>
                 {
-                    uid === data2
+                    uid === data2 && !uid3.uid2
                     ?
                     <ViewButton>
                         <Button
@@ -162,87 +184,108 @@ export default function QuestList({ props }) {
                     : null
                 }    
                             
-            </ScrollView>
+            </ScrollViewMobile>
 
         </div>
 
         :
 
         <div style={{backgroundColor: '#595959', flex: 1}}>
-        <ScrollView2>
-            <FormRow first>
-                    <Text>{data.title}</Text>
-            </FormRow>
+            <ScrollViewDesktop>
+                <FormRow first>
+                        <Text>{data.title}</Text>
+                </FormRow>
 
-            <FormRow>
-                <Text>{data.creator.creatorAuthor}</Text>
-                <TextInput2
-                    style={{marginBottom: 20}}
-                    placeholderTextColor= '#808080'
-                    value={data.creator.user}
-                    onChange={(e) => setData({ ...data, creator: {...data.creator, user: e.target.value} })}
-                    placeholder='Usuário'
-                />
-                {!!nameError && (
-                    <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
-                )}
-            </FormRow>
+                <FormRow>
+                    <Text>{data.creator.creatorAuthor}</Text>
+                    { !uid3.uid2 ?
+                        <TextInput2
+                            style={{marginBottom: 20}}
+                            placeholderTextColor= '#808080'
+                            value={data.creator.user}
+                            onChange={(e) => setData({ ...data, creator: {...data.creator, user: e.target.value} })}
+                            placeholder='Usuário'
+                        />
+                        :
+                        <Text>{data.creator.user}</Text>
+                    }
+                    
+                    {!!nameError && (
+                        <Text style={{ color: 'red', textAlign: 'center', }}>{nameError}</Text>
+                    )}
+                </FormRow>
 
-            <FormRow>
-                <Text>{data.date.dateCreator}</Text>
-                <TextInput2
-                    style={{marginBottom: 20}}
-                    placeholderTextColor= '#808080'
-                    value={data.date.dateUser}
-                    onChange={(e) => setData({ ...data, date: {...data.date, dateUser: e.target.value} })}
-                    placeholder='Data das repostas'              
-                />
-            </FormRow>
+                <FormRow>
+                    <Text>{data.date.dateCreator}</Text>
+                    { !uid3.uid2 ?
+                        <TextInput2
+                            style={{marginBottom: 20}}
+                            placeholderTextColor= '#808080'
+                            value={data.date.dateUser}
+                            onChange={(e) => setData({ ...data, date: {...data.date, dateUser: e.target.value} })}
+                            placeholder='Data das repostas'              
+                        />
+                        :
+                        <Text>{data.date.dateUser}</Text>
+                    }
+                    
+                </FormRow>
 
-                {
-                    data.customField.map((q, id) => (
-                        <FormRow key={id}>
-                            <Text>{q.quest}</Text>
-                            <TextArea2
-                                style={{marginBottom: 20}}
-                                placeholderTextColor= '#808080'
-                                value={q.ans}
-                                onChange={(e) => { 
-                                    const updated = [...data.customField]; updated[id].ans = e.target.value; 
-                                    setData({ ...data, customField: updated }); }
+                    {
+                        data.customField.map((q, id) => (
+                            <FormRow key={id}>
+                                <Text>{q.quest}</Text>
+                                { !uid3.uid2 ?
+                                    <TextArea2
+                                        style={{marginBottom: 20}}
+                                        placeholderTextColor= '#808080'
+                                        value={q.ans}
+                                        onChange={(e) => { 
+                                            const updated = [...data.customField]; updated[id].ans = e.target.value; 
+                                            setData({ ...data, customField: updated }); }
+                                        }
+                                        placeholder='Resposta'
+                                    />
+                                    :
+                                    <Text>{q.ans}</Text>
                                 }
-                                placeholder='Resposta'
-                            />
-                        </FormRow>
-                            
+                                
+                            </FormRow>
+                                
 
-                    ))
+                        ))
+                    }
+
+                <FormRow>
+                    <Text style={{paddingRight: 26}}>Latitude: {data.latitude}</Text>
+                    <Text>Longitude: {data.longitude}</Text>
+                </FormRow>
+
+                { 
+                    !uid3.uid2 ?
+                        <ViewButton>
+                            <Button
+                                style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                                onClick={() => {handleUpdate()}}
+                            >Salvar</Button>
+                        </ViewButton>
+                        :
+                        null
                 }
 
-            <FormRow>
-                <Text style={{paddingRight: 26}}>Latitude: {data.latitude}</Text>
-                <Text>Longitude: {data.longitude}</Text>
-            </FormRow>
+                {
+                    uid === data2 && !uid3.uid2
+                    ?
+                    <ViewButton>
+                        <Button
+                            style={{color: 'white', background: 'red', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
+                            onClick={() => {handleRemove()}}
+                        >Deletar</Button>
+                    </ViewButton>
+                    : null
+                }           
+            </ScrollViewDesktop>
 
-            <ViewButton>
-                <Button
-                    style={{color: 'white', background: 'blue', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                    onClick={() => {handleUpdate()}}
-                >Salvar</Button>
-            </ViewButton>
-            {
-            uid === data2
-            ?
-            <ViewButton>
-                <Button
-                    style={{color: 'white', background: 'red', height: 40, width: 80, marginTop: '5%', marginBottom: '5%'}}
-                    onClick={() => {handleRemove()}}
-                >Deletar</Button>
-            </ViewButton>
-            : null
-            }           
-        </ScrollView2>
-
-    </div>           
+        </div>           
     );
 }

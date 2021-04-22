@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Form from '../../resources/imgs/form-icon.png';
 
 export const QuestsCard = styled.button`
-    width: 20%;
+    width: 16%;
     padding: ${props => (props.isFirstColumn ? '5px 10px 5px 10px' : '5px 10px 5px 10px')};
     margin-top: 2%;
     margin-bottom: 2%;
@@ -61,4 +61,5 @@ export const CardTitle = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-family: Oswald;
 `;

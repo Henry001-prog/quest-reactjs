@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const KeyboardAvoidingView = styled.div``;
 
-export const ScrollView = styled.div`
+export const ScrollViewMobile = styled.div`
     background-color: #595959;
     padding: 10px;
     width: 300px;
@@ -12,9 +12,10 @@ export const ScrollView = styled.div`
     display: inline-block;
 `;
 
-export const ScrollView2 = styled.div`
+export const ScrollViewDesktop = styled.div`
     background-color: #595959;
     padding: 10px;
+    height: 100vh;
     width: 500px;
     align-items: center;
     justify-content: center;
