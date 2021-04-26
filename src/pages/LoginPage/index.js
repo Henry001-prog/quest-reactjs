@@ -3,6 +3,10 @@ import React, { useState } from 'react';
 import '@firebase/database';
 import "firebase/auth";
 
+import { CardMobile, CardDesktop, Text} from './styles';
+import circleTop from '../../resources/imgs/circleTop.svg';
+//import circleBottom from '../../resources/imgs/circleBottom.svg';
+
 
 import { GoogleLogin } from 'react-google-login';
 // or
@@ -60,7 +64,8 @@ export default function LoginPage() {
     return (
         width < breakpoint ?
         <div style={styles.divLoginMobile}>
-            <div style={{display: 'flex', padding: 50, textAlign: 'center', fontSize: 30}}>Faça o login para poder começar a criar e responder formulários.</div>
+            <CardMobile>
+                <Text>Faça o login para poder começar a criar e responder formulários.</Text>
                 <GoogleLogin
                     clientId={clientId}
                     buttonText="Login"
@@ -69,12 +74,15 @@ export default function LoginPage() {
                     cookiePolicy={'single_host_origin'}
                 />
                 {renderLoading()}
+            </CardMobile>
+            
         </div>
 
         :
 
         <div style={styles.divLoginDesktop}>
-            <div style={{display: 'flex',  textAlign: 'center', paddingBottom: 60, fontSize: 30}}>Faça o login para poder começar a criar e responder formulários.</div>
+            <CardDesktop>
+                <Text>Faça o login para poder começar a criar e responder formulários.</Text>
                 <GoogleLogin
                     clientId={clientId}
                     buttonText="Login"
@@ -83,6 +91,8 @@ export default function LoginPage() {
                     cookiePolicy={'single_host_origin'}
                 />
                 {renderLoading()}
+            </CardDesktop>
+            
         </div>
         
         
@@ -93,20 +103,23 @@ export default function LoginPage() {
 const styles = {
     divLoginDesktop: {
         flexDirection: 'column',
-        backgroundColor: 'gray', 
+        backgroundColor: '#008b8b', 
         height: '100vh', 
         width: '100%', 
         display: 'flex',
         justifyContent: 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundImage: `url(${circleTop})`,
     },
     divLoginMobile: {
         flexDirection: 'column',
-        backgroundColor: 'gray', 
+        backgroundColor: '#008b8b', 
         height: '100vh', 
         width: '100%', 
         display: 'flex',
         justifyContent: 'center', 
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundImage: `url(${circleTop})`,
+        backgroundRepeat: 'no-repeat',
     }
 };

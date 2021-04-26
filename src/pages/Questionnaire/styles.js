@@ -1,20 +1,22 @@
 import styled from 'styled-components';
 
 
-export const ScrollView = styled.div`
-    background-color: #595959;
+export const ScrollViewMobile = styled.div`
+    background-color: #5c8a8a;
     padding: 10px;
     width: 300px;
+    border-radius: 20px;
     align-items: center;
     justify-content: center;
     flex: 1;
     display: inline-block;
 `;
 
-export const ScrollView2 = styled.div`
-    background-color: #595959;
+export const ScrollViewDesktop = styled.div`
+    background-color: #5c8a8a;
     padding: 10px;
     width: 500px;
+    border-radius: 20px;
     align-items: center;
     justify-content: center;
     flex: 1;

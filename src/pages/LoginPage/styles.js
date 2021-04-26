@@ -1,52 +1,34 @@
 import styled from 'styled-components';
 
-
-export const ScrollView = styled.div`
-    background-color: #595959;
-    padding: 10px;
-    width: 300px;
+export const CardMobile = styled.div`
+    background-color: #d9d9d9;
+    height: 300px; 
+    width: 300px; 
+    border-radius: 17px;
+    box-shadow: 3px 3px 5px 4px rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: center;
-    flex: 1;
-    display: inline-block;
+    display: flex; 
+    flex-direction: column;
 `;
 
-export const ScrollView2 = styled.div`
-    background-color: #595959;
-    padding: 10px;
-    width: 500px;
+export const CardDesktop = styled.div`
+    background-color: #d9d9d9;
+    height: 430px; 
+    width: 430px; 
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px 4px rgba(0, 0, 0, 0.2);
     align-items: center;
     justify-content: center;
-    flex: 1;
-    display: inline-block;
-`;
-
-export const ViewButton = styled.div`
-    padding: 10px;
-`;
-
-export const Button = styled.button`
-   flex: 1;
-   width: 82px;
-   height: 45px;
-   border-radius: 5px;
-   border: 1px solid transparent;
-   color: white;
-   align-self: stretch;
-   justify-content: center;
-   background-color: blue;
-   align-items: center;
-   font-size: 14px;
-   cursor: pointer;
-   margin-top: 3%;
-   margin-bottom: 3%;
+    display: flex; 
+    flex-direction: column;
+    margin-left: 50px;
 `;
 
 export const Text = styled.div`
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 20px 20px 30px 20px;
+    display: flex; 
+    text-align: center;
+    padding-bottom: 60px;
+    font-size: 30px;
+    font-family: Kumbh Sans;
 `;

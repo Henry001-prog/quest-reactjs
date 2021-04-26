@@ -9,14 +9,14 @@ import firebase from '@firebase/app';
 import '@firebase/database';
 import { geolocated } from 'react-geolocated';
 
-import { 
-    ScrollView,
-    ScrollView2, 
+import {
+    ScrollViewDesktop,
     TextInput,
     TextInput2,
     ViewButton, 
     Button1,
     Text,
+    ScrollViewMobile,
     TextArea,
     TextArea2,
 } from './styles';
@@ -221,8 +221,8 @@ export default function Questionnaire( props, coords ) {
 
     return (
         width < breakpoint ? 
-        <div style={{backgroundColor: '#595959'}}>
-            <ScrollView>
+        <div style={{backgroundColor: '#008b8b', paddingTop: 20, paddingBottom: 20}}>
+            <ScrollViewMobile>
                 <FormRow first>
                     <TextInput 
                         style={{marginBottom: 20, paddingTop: 10}}
@@ -340,11 +340,11 @@ export default function Questionnaire( props, coords ) {
                         >Salvar</Button>
                     </ViewButton>
                         
-            </ScrollView>
+            </ScrollViewMobile>
         </div>
         :
-        <div style={{backgroundColor: '#595959', height: '100%', flex: 1}}>
-            <ScrollView2>
+        <div style={{backgroundColor: '#008b8b', height: '100%', flex: 1, paddingTop: 20, paddingBottom: 20}}>
+            <ScrollViewDesktop>
                 <FormRow first>
                     <TextInput2 
                         style={{marginBottom: 20, paddingTop: 10}}
@@ -461,7 +461,7 @@ export default function Questionnaire( props, coords ) {
                         >Salvar</Button>
                     </ViewButton>
                         
-            </ScrollView2>
+            </ScrollViewDesktop>
         </div>
     );
 }
