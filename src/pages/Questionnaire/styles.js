@@ -5,7 +5,7 @@ export const ScrollViewMobile = styled.div`
     background-color: #5c8a8a;
     padding: 10px;
     width: 300px;
-    border-radius: 20px;
+    border-radius: 30px;
     align-items: center;
     justify-content: center;
     flex: 1;
@@ -16,7 +16,7 @@ export const ScrollViewDesktop = styled.div`
     background-color: #5c8a8a;
     padding: 10px;
     width: 500px;
-    border-radius: 20px;
+    border-radius: 30px;
     align-items: center;
     justify-content: center;
     flex: 1;

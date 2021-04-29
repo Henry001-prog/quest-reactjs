@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const KeyboardAvoidingView = styled.div``;
 
 export const ScrollViewMobile = styled.div`
-    background-color: #595959;
+    background-color: #5c8a8a;
     padding: 10px;
     width: 300px;
+    border-radius: 30px;
     align-items: center;
     justify-content: center;
     flex: 1;
@@ -13,14 +14,28 @@ export const ScrollViewMobile = styled.div`
 `;
 
 export const ScrollViewDesktop = styled.div`
-    background-color: #595959;
+    background-color: #5c8a8a;
     padding: 10px;
-    height: 100vh;
     width: 500px;
+    border-radius: 30px;
     align-items: center;
     justify-content: center;
     flex: 1;
     display: inline-block;
+`;
+
+export const MainDivMobile = styled.div`
+    background-color: #008b8b; 
+    flex: 1; 
+    padding-top: 20px; 
+    padding-bottom: 20px;
+`;
+
+export const MainDivDesktop = styled.div`
+    background-color: #008b8b; 
+    flex: 1; 
+    padding-top: 20px; 
+    padding-bottom: 20px;
 `;
 
 export const TextInput = styled.input`

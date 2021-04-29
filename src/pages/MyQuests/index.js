@@ -27,13 +27,16 @@ export default function MyQuest({ navigation }) {
     const clientId = '625117253701-s8cmkt6i5k86un937u4dp5ulbf0bl11b.apps.googleusercontent.com';
 
     const [data, setData] = useState(items);
-    const [data2, setData2] = useState('');
-    //console.log('testando:', data2);
+    const [userId, setUserId] = useState('');
+    console.log('testando:', userId);
     
     useEffect(() => {
       function datas() {
         data.map((item, index) => (
-          setData2(item.uid)
+          item.uid !== undefined ?
+          setUserId(JSON.stringify(item.uid))
+          :
+          null
         ))
       }
       datas();
@@ -41,9 +44,10 @@ export default function MyQuest({ navigation }) {
     
 
     //console.log('Olá:', data2);
-    const userId = JSON.stringify(data2);
+    //const userId = JSON.stringify(data2);
     //console.log('Olá:', userId);
-
+    //const id = JSON.stringify(uid2);
+    //console.log('mais um:', id)
 
     //const uid = JSON.stringify(uid2.googleId); //aqui eu separo o googleId em formato de string
     //console.log('string:', uid2);
@@ -61,8 +65,8 @@ export default function MyQuest({ navigation }) {
     };
 
 
-  //console.log(data);
-  //console.log(googleId);
+  console.log('Dados da QuestList:', data);
+  console.log('uid da QuestList:', userId);
   
   let history = useHistory();
 
@@ -92,7 +96,7 @@ export default function MyQuest({ navigation }) {
           <div>
             <DivForm>Seus Formulários</DivForm>
               {data.map((item, index) => (
-                  userId === uid && !item.uid2
+                  JSON.stringify(item.uid) === uid && !item.uid2
                   ?
                   <div key={index}>
                     {/*console.log('uid no item:', item.uid)*/}
@@ -100,7 +104,7 @@ export default function MyQuest({ navigation }) {
                         keyid={item.id}
                         title={item.title}
                         isFirstColumn={isEven(index)}
-                        onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: uid }})}}
+                        onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item }, state2: {uid2: uid }})}}
                     /> 
                   </div>
                   : null
@@ -111,14 +115,15 @@ export default function MyQuest({ navigation }) {
             />
             <DivForm>Respostas dos formulários</DivForm>
               {data.map((item, index) => (
-                  userId === uid && item.uid2
+                  item.uid2 && uid === JSON.stringify(item.data.uid)
                   ?
                   <div key={index}>
+                    {console.log('uid no item:', item.data.uid)}
                     <QuestCard 
                         keyid={item.data.id}
                         title={item.data.title}
                         isFirstColumn={isEven(index)}
-                        onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item.data}, state2: {uid2: uid }, state3: {uid3: item }})}}
+                        onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item.data }, state2: {uid2: uid }})}}
                     /> 
                   </div>
                   : null

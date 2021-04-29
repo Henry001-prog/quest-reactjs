@@ -21,6 +21,7 @@ export default function QuestList({ navigation }) {
     // const [customFields, setCustomFields] = useState([{}]);
     const location = useLocation();
     const { uid2 } = location.state;
+    //const { dataRedirect } = location.state2;
     //console.log('teste:', uid2)
 
     const clientId = '625117253701-s8cmkt6i5k86un937u4dp5ulbf0bl11b.apps.googleusercontent.com';
@@ -35,6 +36,7 @@ export default function QuestList({ navigation }) {
     
 
     const [data, setData] = useState([]);
+    //const [dataList, setDataList] = useState(dataRedirect);
 
     const [loading, setLoading] = useState(true);
 
@@ -80,8 +82,9 @@ export default function QuestList({ navigation }) {
     
   }, []);
 
-  //console.log(data);
-  //console.log(googleId);
+  console.log('Dados do Firebase:', data);
+  //console.log('Dados do Redirect:', dataList);
+  console.log('uid:', googleId);
   
   let history = useHistory();
 
@@ -127,7 +130,7 @@ export default function QuestList({ navigation }) {
         <ViewButton>
           <Button1
             onClick={() => history.push({pathname: '/myquests', state: { items: data }, state2: { uid2: googleId }})}
-          >Exbir seus formulários e as respostas</Button1>
+          >Exibir seus formulários e as respostas</Button1>
         </ViewButton>    
         <AddQuestCard   
           onNavigate={() => history.push('/')} 
