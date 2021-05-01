@@ -133,7 +133,8 @@ export default function QuestList({ navigation }) {
           >Exibir seus formulários e as respostas</Button1>
         </ViewButton>    
         <AddQuestCard   
-          onNavigate={() => history.push('/')} 
+          onNavigate={() => history.push({pathname: '/questionnaire', state: { dataItem: data3 }})}
+          title={"Criar questionário"} 
         />
         </div>
         }   

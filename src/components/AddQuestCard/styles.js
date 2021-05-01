@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 export const AddQuestsCard = styled.button`
-    width: 30%;
+    width: ${props => (props.width < props.breakpoint ? '53%' : '22%')};
     padding: ${props => (props.isFirstColumn ? '5px 5px 5px 10px' : '5px 10px 5px 5px')};
     background-color: transparent;
     border: transparent;
@@ -35,5 +35,5 @@ export const Text = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    font-size: 17px;
+    font-size: ${props => (props.width < props.breakpoint ? '17px' : '20px')};
 `;

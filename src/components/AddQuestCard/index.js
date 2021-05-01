@@ -1,5 +1,6 @@
 import React from 'react';
 import add from '../../resources/imgs/add.png';
+import useViewport from '../../resources/responsive';
 /*import {
     StyleSheet, 
     Dimensions,
@@ -11,20 +12,35 @@ import { AddQuestsCard, Card, Image, Text, CardText } from './styles';
 
 // import { Container } from './styles';
 
-const AddQuestCard = ({ isFirstColumn, onNavigate }) => (
-    <AddQuestsCard
-        onClick={onNavigate}
-        isFirstColumn={isFirstColumn}>
-        <Card>
-            <Image 
-                src={add}
-            />
-            <CardText><Text>Criar questionário</Text></CardText>
+export default function AddQuestCard({ isFirstColumn, onNavigate, title }) {
+
+    const { width } = useViewport();
+    const breakpoint = 620;
+
+    return(
+        <AddQuestsCard
+            onClick={onNavigate}
+            isFirstColumn={isFirstColumn}
+            width={width}
+            breakpoint={breakpoint}>
+            <Card>
+                <Image 
+                    src={add}
+                />
+                <CardText>
+                    <Text 
+                        width={width}
+                        breakpoint={breakpoint}>
+                        {title}
+                    </Text>
+                </CardText>
+                
+            </Card>
             
-        </Card>
-        
-    </AddQuestsCard>
-);
+        </AddQuestsCard>
+    )
+    
+};
 
 /*const styles = StyleSheet.create({
     container: {
@@ -63,4 +79,3 @@ const AddQuestCard = ({ isFirstColumn, onNavigate }) => (
     },
 });*/
 
-export default AddQuestCard;

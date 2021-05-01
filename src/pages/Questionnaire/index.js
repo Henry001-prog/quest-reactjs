@@ -284,16 +284,16 @@ export default function Questionnaire( props, coords ) {
 
                     {
                         questions.map((val, idx) => {
-                            const catId = `quest-${idx}`;
-                            const ageId = `ans-${idx}`;
+                            const questId = `quest-${idx}`;
+                            const ansId = `ans-${idx}`;
                             return (
                             <FormRow key={`quest-${idx}`}>
                                 <input
                                     style={styles.textarea}
                                     placeholder="Pergunta"
-                                    name={catId}
+                                    name={questId}
                                     data-idx={idx}
-                                    id={catId}
+                                    id={questId}
                                     className="quest" 
                                     value={questions[idx].quest}
                                     onChange={handleQuestChange}
@@ -303,9 +303,9 @@ export default function Questionnaire( props, coords ) {
                                     style={styles.textarea}
                                     placeholder="Resposta"
                                     type="text"
-                                    name={ageId}
+                                    name={ansId}
                                     data-idx={idx}
-                                    id={ageId}
+                                    id={ansId}
                                     className="ans"
                                     value={questions[idx].ans}
                                     onChange={handleQuestChange}

@@ -33,6 +33,7 @@ export const MainDivMobile = styled.div`
 
 export const MainDivDesktop = styled.div`
     background-color: #008b8b; 
+    height: 100vh;
     flex: 1; 
     padding-top: 20px; 
     padding-bottom: 20px;

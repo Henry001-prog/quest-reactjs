@@ -70,7 +70,7 @@ export default function QuestList({ props }) {
         db
         .ref(`/questionnaires/${data.id}`)
         .remove();
-        history.push({pathname: 'redirect'});
+        history.push({pathname: 'redirect', state: { dataQA: data }});
     }
 
     /*function error() {
