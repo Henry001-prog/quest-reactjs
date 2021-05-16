@@ -38,17 +38,11 @@ export default function Questionnaire( props, coords ) {
     const [nameError, setNameError] = useState('');
     const [nameError2, setNameError2] = useState('');
     const [nameError3, setNameError3] = useState('');
-    //const [nameError4, setNameError4] = useState('');
+    const [nameError4, setNameError4] = useState('');
     //const [nameError5, setNameError5] = useState('');
     //const [question, setQuestion] = useState('');
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
-    //const [answer, setAnswer] = useState('');
-    //const [location, setLocation] = useState();
-    //const [latitude, setLatitude] = useState('');
-    //const [longitude, setLongitude] = useState('');
-    //const [errorMsg, setErrorMsg] = useState(null);
-    //const [test, setTest] = useState({});
     
    console.log(data);
 
@@ -81,7 +75,7 @@ export default function Questionnaire( props, coords ) {
         } else if(dateCreator.trim() === '') {
             setNameError3(() => ('Necessário preencher o campo data do formulário.'));
         }
-        /*else if(questions.quests.trim() === '') {
+        /*else if(questions.quest.trim() === '') {
             setNameError4(() => ('Necessário preencher o campo pergunta.'));
         }*/
         else {
@@ -228,7 +222,7 @@ export default function Questionnaire( props, coords ) {
                         style={{marginBottom: 20, paddingTop: 10}}
                         type='text'
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {setTitle(e.target.value); setNameError('')}}
                         placeholder='Título'
                     />
                     {!!nameError && (
@@ -241,7 +235,7 @@ export default function Questionnaire( props, coords ) {
                                 style={{marginBottom: 20, paddingTop: 10}}
                                 type='text'
                                 value={creatorAuthor}
-                                onChange={(e) => setCreatorAuthor(e.target.value)}
+                                onChange={(e) => {setCreatorAuthor(e.target.value); setNameError2('')}}
                                 placeholder='Autor'
                         />
                         <br/>
@@ -264,7 +258,7 @@ export default function Questionnaire( props, coords ) {
                                 style={{marginBottom: 20, paddingTop: 10}}
                                 type='text'
                                 value={dateCreator} 
-                                onChange={(e) => setDateCreator(e.target.value)}
+                                onChange={(e) => {setDateCreator(e.target.value); setNameError3('')}}
                                 placeholder='Data do formulário'
                             />
                             {!!nameError3 && (
@@ -281,13 +275,16 @@ export default function Questionnaire( props, coords ) {
                                 />
                             </div>
                     </FormRow>
-
+                    
                     {
                         questions.map((val, idx) => {
                             const questId = `quest-${idx}`;
                             const ansId = `ans-${idx}`;
                             return (
                             <FormRow key={`quest-${idx}`}>
+                                {!!nameError4 && (
+                                    <Text style={{ color: 'red', textAlign: 'center', }}>{nameError4}</Text>
+                                )}
                                 <input
                                     style={styles.textarea}
                                     placeholder="Pergunta"
@@ -350,7 +347,7 @@ export default function Questionnaire( props, coords ) {
                         style={{marginBottom: 20, paddingTop: 10}}
                         type='text'
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        onChange={(e) => {setTitle(e.target.value); setNameError('')}}
                         placeholder='Título'
                     />
                     {!!nameError && (
@@ -363,7 +360,7 @@ export default function Questionnaire( props, coords ) {
                                 style={{marginBottom: 20, paddingTop: 10}}
                                 type='text'
                                 value={creatorAuthor}
-                                onChange={(e) => setCreatorAuthor(e.target.value)}
+                                onChange={(e) => {setCreatorAuthor(e.target.value); setNameError2('')}}
                                 placeholder='Autor'
                         />
                         <br/>
@@ -386,7 +383,7 @@ export default function Questionnaire( props, coords ) {
                                 style={{marginBottom: 20, paddingTop: 10}}
                                 type='text'
                                 value={dateCreator} 
-                                onChange={(e) => setDateCreator(e.target.value)}
+                                onChange={(e) => {setDateCreator(e.target.value); setNameError3('')}}
                                 placeholder='Data do formulário'
                             />
                             {!!nameError3 && (
@@ -406,16 +403,16 @@ export default function Questionnaire( props, coords ) {
 
                     {
                         questions.map((val, idx) => {
-                            const catId = `quest-${idx}`;
-                            const ageId = `ans-${idx}`;
+                            const quest = `quest-${idx}`;
+                            const ans = `ans-${idx}`;
                             return (
                             <FormRow key={`quest-${idx}`}>
                                 <input
                                     style={styles.textarea2}
                                     placeholder="Pergunta"
-                                    name={catId}
+                                    name={quest}
                                     data-idx={idx}
-                                    id={catId}
+                                    id={quest}
                                     className="quest" 
                                     value={questions[idx].quest}
                                     onChange={handleQuestChange}
@@ -425,9 +422,9 @@ export default function Questionnaire( props, coords ) {
                                     style={styles.textarea2}
                                     placeholder="Resposta"
                                     type="text"
-                                    name={ageId}
+                                    name={ans}
                                     data-idx={idx}
-                                    id={ageId}
+                                    id={ans}
                                     className="ans"
                                     value={questions[idx].ans}
                                     onChange={handleQuestChange}
