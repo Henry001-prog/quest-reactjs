@@ -1,20 +1,43 @@
 import styled from 'styled-components';
-import FlatList from 'flatlist-react';
 
 
 export const ViewList = styled.div`
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: lightblue;
     height: 100%;
+    flex: 1;
 `;
 
-export const ScrollList = styled(FlatList)``;
+export const Div = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
 
-export const ViewTop = styled.div`
-    margin-top: 5px;
+export const Div2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const DivButton = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
 `;
 
 export const ViewBottom = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 5px;
 `;
 
@@ -24,7 +47,7 @@ export const ViewButton = styled.div`
     padding: 10px;
     justify-content: center;
     align-items: center;
-    margin-top: 2%;
+    margin-top: 50%;
 `;
 
 export const Button1 = styled.button`

@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 
 import LoginPage from './pages/LoginPage';
@@ -5,14 +6,28 @@ import Questionnaire from './pages/Questionnaire';
 import QuestList from './pages/QuestList';
 import QuestAnswer from './pages/QuestAnswer';
 import MyQuests from './pages/MyQuests';
-import Redirect from './pages/Redirect';
+import Redirects from './pages/Redirect';
+import NotFound from './pages/NotFound';
 
 import history from './History';
 
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 
 function App() {
+  const [token, setToken] = useState();
+  console.log('Token:', token);
+
   return (
+    !token ?
+    <Router history={history}>
+      <Route>
+        <Redirect to="/" />
+        <LoginPage setToken={setToken} />
+      </Route>
+    </Router>
+
+    :
+
     <Router history={history}>
       <div className="App">
         <Switch>
@@ -32,7 +47,10 @@ function App() {
             <MyQuests />
           </Route>
           <Route path="/redirect">
-            <Redirect />
+            <Redirects />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </div>

@@ -12,7 +12,7 @@ import history from '../../History';
 import { useLocation } from "react-router-dom";
 import Loader from "react-loader-spinner";
 
-export default function LoginPage() {
+export default function Redirects() {
 
     const location = useLocation();
 

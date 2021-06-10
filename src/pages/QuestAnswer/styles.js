@@ -32,8 +32,12 @@ export const MainDivMobile = styled.div`
 `;
 
 export const MainDivDesktop = styled.div`
-    background-color: #008b8b; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    background-color: #008b8b;
     flex: 1; 
     padding-top: 20px; 
     padding-bottom: 20px;

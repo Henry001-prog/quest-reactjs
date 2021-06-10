@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import '@firebase/database';
 import "firebase/auth";
@@ -17,7 +18,7 @@ import Loader from "react-loader-spinner";
 import history from '../../History';
 import useViewport from '../../resources/responsive';
 
-export default function LoginPage() {
+export default function LoginPage({ setToken }) {
 
     const [loading, setLoading] = useState(false);
 
@@ -43,6 +44,7 @@ export default function LoginPage() {
         setLoading(true);
         history.push({pathname: '/questionnaire', state: { dataItem: res }})
         console.log('[Login Success] currentUser:', res);
+        setToken(res.tokenId);
         setLoading(false);
 
         refreshTokenSetup(res);
@@ -123,3 +125,7 @@ const styles = {
         backgroundRepeat: 'no-repeat',
     }
 };
+
+LoginPage.propTypes = {
+    setToken: PropTypes.func.isRequired
+}

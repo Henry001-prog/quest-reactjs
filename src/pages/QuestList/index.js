@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ViewList, ViewButton, Button1 } from './styles';
+import { ViewList, ViewButton, Button1, Div, DivButton, Div2 } from './styles';
 import QuestCard from '../../components/QuestCard';
 import AddQuestCard from '../../components/AddQuestCard';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -47,6 +47,7 @@ export default function QuestList({ navigation }) {
 
     useEffect(() => {
       let unmounted = false;
+      async function Db() {
       const db = firebase.database();
       if (!unmounted) {
         db.ref('/questionnaires/')
@@ -76,6 +77,8 @@ export default function QuestList({ navigation }) {
         
         });
       }
+    }
+    Db();
 
       return () => { unmounted = true };
       
@@ -103,40 +106,43 @@ export default function QuestList({ navigation }) {
         </div>
 
         { loading ?
-        <div style={styles.loading}>
-          <Loader
-            type="Oval"
-            color="#00BFFF"
-            height={100}
-            width={100}
-          />
-        </div>
-        :
-        <div>
-         
-          {data.map((item, index) => (
-              !item.uid2
-              ?
-              <div key={index}>
-                <QuestCard 
-                    keyid={item.id}
-                    title={item.title}
-                    isFirstColumn={isEven(index)}
-                    onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: googleId }})}}
-                /> 
-              </div>
-              : null
-            ))}
-        <ViewButton>
-          <Button1
-            onClick={() => history.push({pathname: '/myquests', state: { items: data }, state2: { uid2: googleId }})}
-          >Exibir seus formulários e as respostas</Button1>
-        </ViewButton>    
-        <AddQuestCard   
-          onNavigate={() => history.push({pathname: '/questionnaire', state: { dataItem: data3 }})}
-          title={"Criar questionário"} 
-        />
-        </div>
+          <div style={styles.loading}>
+            <Loader
+              type="Oval"
+              color="#00BFFF"
+              height={100}
+              width={100}
+            />
+          </div>
+          :
+          <>
+            <DivButton>
+              {data.map((item, index) => (
+                  !item.uid2
+                  ?
+                  <Div2 key={index}>
+                    <QuestCard 
+                        keyid={item.id}
+                        title={item.title}
+                        isFirstColumn={isEven(index)}
+                        onNavigate={() => {history.push({pathname: '/questanswer', state: { dataItem: item}, state2: {uid2: googleId }})}}
+                    /> 
+                  </Div2>
+                  : null
+                ))}
+            </DivButton>
+            <Div>
+              <ViewButton>
+                <Button1
+                  onClick={() => history.push({pathname: '/myquests', state: { items: data }, state2: { uid2: googleId }})}
+                >Exibir seus formulários e as respostas</Button1>
+              </ViewButton>    
+              <AddQuestCard   
+                  onNavigate={() => history.push({pathname: '/questionnaire', state: { dataItem: data3 }})}
+                  title={"Criar questionário"} 
+              />
+            </Div>
+          </>
         }   
       </ViewList>
   );
@@ -144,22 +150,22 @@ export default function QuestList({ navigation }) {
 
 const styles = {
   loading: { 
-    height: '100vh', 
-    width: '100%', 
     display: 'flex', 
+    flexDirection: 'column',
     alignItems: 'center', 
     justifyContent: 'center', 
-    flex: 1, 
-    flexDirection: 'column'
+    flex: 1,
+    height: '100vh', 
+    width: '100%',
   },
   divLogout: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end', 
     alignItems: 'flex-start', 
+    flexWrap: 'wrap',
     padding: 10,
     margin: 0,
     paddingRight: 15,
-    cursor: 'pointer'
   },
 };

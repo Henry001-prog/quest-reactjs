@@ -28,6 +28,7 @@ export default function Questionnaire( props, coords ) {
     const { dataItem } = location.state;
 
     const [data, setData] = useState(dataItem);
+    //console.log('Dados:', data);
 
     const [title, setTitle] = useState('');
     const [creatorAuthor, setCreatorAuthor] = useState('');
@@ -339,6 +340,7 @@ export default function Questionnaire( props, coords ) {
                         
             </ScrollViewMobile>
         </div>
+
         :
         <div style={{backgroundColor: '#008b8b', height: '100%', flex: 1, paddingTop: 20, paddingBottom: 20}}>
             <ScrollViewDesktop>
